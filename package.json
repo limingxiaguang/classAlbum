@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "clonedeep": "^2.0.0",
     "core-js": "^2.6.5",
     "iview": "^3.4.2",
     "mockjs": "^1.0.1-beta3",
