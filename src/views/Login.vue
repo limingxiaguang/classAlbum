@@ -7,19 +7,25 @@
   >
     <h1>16计网二班 - 班级管理系统</h1>
     <FormItem label="学号" prop="numberId">
-      <Input type="text" v-model="formCustom.numberId"></Input>
+      <Input type="text" v-model="formCustom.numberId" placeholder="请输入学号">
+      </Input>
     </FormItem>
     <FormItem label="密码" prop="passwd">
-      <Input type="password" v-model="formCustom.passwd"></Input>
+      <Input
+        type="password"
+        v-model="formCustom.passwd"
+        placeholder="请输入密码"
+      ></Input>
     </FormItem>
     <FormItem>
       <Button size="large" type="primary" @click="handleSubmit('formCustom')"
-        >Submit</Button
+        >登录</Button
       >
     </FormItem>
   </Form>
 </template>
 <script>
+import { getUserInfo } from "@/api/user";
 export default {
   data() {
     const validatePass = (rule, value, callback) => {
@@ -28,7 +34,7 @@ export default {
       } else {
         if (this.formCustom.passwdCheck !== "") {
           // 对第二个密码框单独验证
-          this.$refs.formCustom.validateField("passwdCheck");
+          // this.$refs.formCustom.validateField("passwd");
         }
         callback();
       }
@@ -44,8 +50,7 @@ export default {
     return {
       formCustom: {
         numberId: "",
-        passwd: "",
-        age: ""
+        passwd: ""
       },
       ruleCustom: {
         passwd: [{ validator: validatePass, trigger: "blur" }],
@@ -55,8 +60,21 @@ export default {
   },
   methods: {
     handleSubmit(name) {
+      // console.log(this.$refs[name].validate);
+
       this.$refs[name].validate(valid => {
+        // console.log(valid);
+
         if (valid) {
+          // console.log(getUserInfo);
+
+          getUserInfo({ userId: this.numberId })
+            .then(res => {
+              console.log(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
           this.$Message.success("Success!");
         } else {
           this.$Message.error("Fail!");

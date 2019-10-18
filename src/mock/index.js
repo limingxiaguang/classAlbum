@@ -1,7 +1,7 @@
 import Mock from "mockjs";
-import { getUserInfo, login, authorization } from "./response/user";
-import { getTableData, getFileList, getFolderList } from "./response/data";
+import getUserInfo from "./response/user";
 const Random = Mock.Random;
+Mock.mock(/\/getUserInfo/, "post", getUserInfo);
 Mock.setup({
   timeout: 0
 });
