@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseURL } from "@/config";
-import { getToken } from "@/lib/util";
+// import { getToken } from "@/lib/util";
 class HttpRequest {
   constructor(baseUrl = baseURL) {
     this.baseUrl = baseUrl;
@@ -28,8 +28,8 @@ class HttpRequest {
         if (!Object.keys(this.queue).length) {
           // Spin.show()
         }
-        this.queue[url] = true;
-        config.headers["Authorization"] = getToken();
+        // this.queue[url] = true;
+        // config.headers["Authorization"] = getToken();
         return config;
       },
       error => {

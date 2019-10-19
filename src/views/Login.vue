@@ -1,5 +1,6 @@
 <template>
-  <Form
+  <div class="outer">
+    <Form
     ref="formCustom"
     :model="formCustom"
     :rules="ruleCustom"
@@ -23,6 +24,7 @@
       >
     </FormItem>
   </Form>
+  </div>
 </template>
 <script>
 import { getUserInfo } from "@/api/user";
@@ -32,10 +34,6 @@ export default {
       if (value === "") {
         callback(new Error("请输入你的密码"));
       } else {
-        if (this.formCustom.passwdCheck !== "") {
-          // 对第二个密码框单独验证
-          // this.$refs.formCustom.validateField("passwd");
-        }
         callback();
       }
     };
@@ -63,21 +61,31 @@ export default {
       // console.log(this.$refs[name].validate);
 
       this.$refs[name].validate(valid => {
-        // console.log(valid);
+        console.log(valid);
 
         if (valid) {
           // console.log(getUserInfo);
 
-          getUserInfo({ userId: this.numberId })
+          getUserInfo({ userId: this.formCustom.numberId, passwd: this.formCustom.passwd})
             .then(res => {
-              console.log(res);
+              // console.log(res);
+              if(res.err == 0){
+                this.$Message.success(res.msg);
+                localStorage.setItem("Token", res.token)
+                this.$router.push({
+                  name: 'Layout'
+                })
+              } else {
+                this.$Message.error(res.msg);
+              }
             })
             .catch(err => {
               console.log(err);
+              this.$Message.error('内部错误');
             });
-          this.$Message.success("Success!");
+          
         } else {
-          this.$Message.error("Fail!");
+          this.$Message.error("密码或者用户名为空!");
         }
       });
     }
@@ -90,8 +98,10 @@ html,body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+
 }
 .ivu-form {
+  z-index: 999;
   width: 30%;
   margin: 10% auto;
   & .ivu-input-wrapper {
@@ -108,7 +118,10 @@ html,body {
     width: 100%;
   }
 }
-body {
+.outer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   background-image: url("../assets/img/back_ground.jpg");
 
   background-repeat: no-repeat;
@@ -117,5 +130,6 @@ body {
 
   background-size: cover;
   
+  z-index: 998;
 }
 </style>

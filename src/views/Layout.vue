@@ -8,3 +8,9 @@ export default {
   //
 };
 </script>
+<style lang="less" scoped>
+body{
+  background-size:unset
+}
+
+</style>

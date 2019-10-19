@@ -18,6 +18,6 @@ export const routes = [
     // 登陆路由
     path: "/login",
     name: "Login",
-    component: () => import(/* webpackChunkName: "Login" */ "@/views/Login.vue")
+    component: () => import(/* webpackChunkName: "Login" */ "@/views/Login.vue"),
   }
 ];
