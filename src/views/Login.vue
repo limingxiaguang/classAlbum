@@ -6,7 +6,7 @@
     :rules="ruleCustom"
     :label-width="80"
   >
-    <h1>16计网二班 - 班级管理系统</h1>
+    <h1>16计网二班 - 大学回忆册</h1>
     <FormItem label="学号" prop="numberId">
       <Input type="text" v-model="formCustom.numberId" placeholder="请输入学号">
       </Input>
@@ -70,6 +70,7 @@ export default {
             .then(res => {
               // console.log(res);
               if(res.err == 0){
+                console.log(res)
                 this.$Message.success(res.msg);
                 localStorage.setItem("Token", res.token)
                 this.$router.push({

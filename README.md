@@ -1,4 +1,4 @@
-# classmanagement
+# classAlbum
 
 ## Project setup
 ```

@@ -1,21 +1,20 @@
 <template>
-    <Menu active-name="1-2" :theme="theme" width="auto" :class="classP">
-        <MenuItem name="1-1">
-            <Icon type="ios-navigate"></Icon>
-            <span>Option 1</span>
+    <Menu active-name="Album" :theme="theme" width="auto" :class="classP" @on-select="clickEvent">
+        <MenuItem name="Album">
+            <Icon type="ios-book-outline" />
+            <span>校园回忆</span>
         </MenuItem>
-        <MenuItem name="1-2">
-            <Icon type="ios-search"></Icon>
-            <span>Option 2</span>
+        <MenuItem name="UserInfo">
+            <Icon type="md-contact" />
+            <span>个人中心</span>
         </MenuItem>
-        <MenuItem name="1-3">
-            <Icon type="ios-settings"></Icon>
-            <span>Option 3</span>
+        <MenuItem name="logOut">
+            <Icon type="ios-log-out" />
+            <span>退出登录</span>
         </MenuItem>
     </Menu>
 </template>
 <script>
-import { type } from 'os';
 export default {
     name: "dMenu",
     props: {
@@ -24,6 +23,16 @@ export default {
             default: 'dark'
         },
         classP:  Array
+    },
+    methods: {
+        clickEvent(name) {
+            console.log(name)
+            name === "logOut" ? this.handelLogOut() : this.$router.replace(name)
+        },
+        handelLogOut () {
+            localStorage.setItem("Token", "") 
+             this.$router.replace('Login')
+        }
     }
 }
 </script>
